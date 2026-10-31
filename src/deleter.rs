@@ -36,16 +36,16 @@ where
                 sent_before: cutoff_time,
                 just_images: schedule.just_images,
             };
-            debug!(channel = as_serde!(&channel), guild = as_serde!(&guild), max_age = &format!("{}h {}m", schedule.delete_older_than.num_hours(), schedule.delete_older_than.num_minutes() % 60); "Fetching messages");
+            debug!(channel:serde = channel, guild:serde = guild, max_age = &format!("{}h {}m", schedule.delete_older_than.num_hours(), schedule.delete_older_than.num_minutes() % 60); "Fetching messages");
             let messages = match self.getter.get_old_messages(request).await {
                 Ok(messages) => messages,
                 Err(e) => {
-                    error!(error = as_debug!(e), channel = as_serde!(&channel), guild = as_serde!(&guild); "Error loading messages");
+                    error!(error:? = e, channel:serde = channel, guild:serde = guild; "Error loading messages");
                     continue;
                 }
             };
             if messages.is_empty() {
-                debug!(channel = as_serde!(&channel), guild = as_serde!(&guild); "Nothing to delete");
+                debug!(channel:serde = channel, guild:serde = guild; "Nothing to delete");
                 continue;
             }
             let num_messages = messages.len();
@@ -56,10 +56,10 @@ where
             };
             match self.deleter.delete_old_messages(request).await {
                 Ok(_) => {
-                    info!(channel = as_serde!(&channel), guild = as_serde!(&guild), num_messages = num_messages; "Deleted old messages")
+                    info!(channel:serde = channel, guild:serde = guild, num_messages = num_messages; "Deleted old messages")
                 }
                 Err(e) => {
-                    error!(channel = as_serde!(&channel), guild = as_serde!(&guild), error = as_debug!(e), num_messages = num_messages; "Error deleting messages")
+                    error!(channel:serde = channel, guild:serde = guild, error:? = e, num_messages = num_messages; "Error deleting messages")
                 }
             };
         }

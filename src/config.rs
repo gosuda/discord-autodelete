@@ -9,12 +9,12 @@ pub enum Error {
     FileNotFound(PathBuf),
     NotFile(PathBuf),
     CannotRead(std::io::Error),
-    Serde(serde_yaml::Error),
+    Serde(serde_norway::Error),
     CannotSave(std::io::Error),
 }
 
-impl From<serde_yaml::Error> for Error {
-    fn from(e: serde_yaml::Error) -> Self {
+impl From<serde_norway::Error> for Error {
+    fn from(e: serde_norway::Error) -> Self {
         Error::Serde(e)
     }
 }
@@ -153,11 +153,11 @@ impl Config {
     }
 
     pub fn load_from_yaml(data: &str) -> Result<Config, Error> {
-        Ok(serde_yaml::from_str(data)?)
+        Ok(serde_norway::from_str(data)?)
     }
 
     pub fn to_string(&self) -> Result<String, Error> {
-        Ok(serde_yaml::to_string(self)?)
+        Ok(serde_norway::to_string(self)?)
     }
 
     pub fn save_to_file(&self, path: &Path) -> Result<(), Error> {

@@ -115,7 +115,6 @@ where
 mod tests {
     use crate::types::*;
     use serenity::model::channel::Message;
-    use table_test::*;
 
     const GUILD_ONE: NamedGuild = NamedGuild {
         name: String::new(),
@@ -278,13 +277,12 @@ mod tests {
             // ),
         ];
 
-        for (validator, (title, request, message), expected) in table_test!(test_cases) {
-            validator
-                .description(title)
-                .given(&format!("{:?}", &message))
-                .when(&format!("{:?}", &request))
-                .then(&format!("matches: {}", &expected))
-                .assert_eq(expected, request.matches(&message));
+        for ((title, request, message), expected) in test_cases {
+            assert_eq!(
+                request.matches(&message),
+                expected,
+                "{title}: request {request:?}, message {message:?}"
+            );
         }
     }
 }

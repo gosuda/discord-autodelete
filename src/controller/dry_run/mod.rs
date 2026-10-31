@@ -2,7 +2,7 @@ use super::error::DeleteError;
 use super::traits::*;
 use crate::types::*;
 use async_trait::async_trait;
-use log::{as_serde, debug};
+use log::debug;
 
 #[derive(Default)]
 pub struct Deleter {}
@@ -19,7 +19,7 @@ impl OldMessageDeleter for Deleter {
         &mut self,
         request: DeleteMessagesRequest,
     ) -> Result<(), DeleteError> {
-        debug!(request = as_serde!(request); "Deleting messages");
+        debug!(request:serde = request; "Deleting messages");
         Ok(())
     }
 }

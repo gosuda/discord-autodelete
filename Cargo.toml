@@ -8,16 +8,13 @@ license = "MIT OR AGPL-3.0-or-later"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
-serenity = { version = "0.12" , features = ["model", "http", "client", "builder"] }
-tokio = { version = "1.21.2", features = ["macros", "rt-multi-thread", "io-std", "io-util"] }
-serde = { version = "1.0", features = ["derive"] }
-serde_yaml = "0.9"
-chrono = { version = "0.4", features = ["serde"] }
-async-trait = "0.1.74"
-futures = "0.3.29"
-clap = { version = "4.4.10", features = ["env", "cargo", "derive"] }
-log = { version = "0.4.20", features = ["kv_unstable"] }
-structured-logger = "1.0.3"
-
-[dev-dependencies]
-table-test = "0.2.1"
+serenity = { version = "0.12.5", features = ["model", "http", "client", "builder"] }
+tokio = { version = "1.54.1", features = ["macros", "rt-multi-thread", "io-std", "io-util"] }
+serde = { version = "1.0.229", features = ["derive"] }
+serde_norway = "0.9.42"
+chrono = { version = "0.4.45", features = ["serde"] }
+async-trait = "0.1.92"
+futures = "0.3.34"
+clap = { version = "4.6.7", features = ["env", "cargo", "derive"] }
+log = { version = "0.4.35", features = ["kv", "kv_serde"] }
+structured-logger = "1.0.5"

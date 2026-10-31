@@ -1,4 +1,4 @@
-FROM rust:1.74 AS builder
+FROM rust:1.99-trixie AS builder
 
 # 1 create a new empty shell project
 RUN USER=root cargo new --bin discord-autodelete
@@ -9,7 +9,7 @@ COPY ./Cargo.lock ./Cargo.lock
 COPY ./Cargo.toml ./Cargo.toml
 
 # 3 cache your dependencies
-RUN cargo build --release
+RUN cargo build --release --locked
 RUN rm src/*.rs
 
 # 4 copy source tree
@@ -19,12 +19,11 @@ COPY ./src ./src
 RUN touch -a -m ./src/main.rs
 
 # 5 build for release
-RUN cargo build --release
+RUN cargo build --release --locked
 
 #########################
 
-# FROM rust:1.74-slim-bookworm
-FROM debian:bookworm-slim
+FROM debian:trixie-slim
 COPY --from=builder /discord-autodelete/target/release/discord-autodelete /bin/discord-autodelete
 WORKDIR /app
 CMD [ "/bin/discord-autodelete" ]

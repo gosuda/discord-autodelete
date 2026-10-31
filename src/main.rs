@@ -81,7 +81,7 @@ async fn main() {
         .await
         .expect("Error creating client");
 
-    info!(args = as_serde!(&args); "starting");
+    info!(args:serde = args; "starting");
 
     loop {
         info!("reloading config");
