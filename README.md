@@ -1,5 +1,7 @@
 # Event Horizon
 
+> **Note:** This repository is a fork of [brownian-motion/discord-autodelete](https://github.com/brownian-motion/discord-autodelete).
+
 This is a Discord bot that slowly deletes all posts in a channel as they expire, sliding inexorably into oblivion.
 You can use it to remove all posts that live longer than a certain age.
 This is useful for things like `#venting` channels, selfies, and anything sensitive you don't want years of history getting exposed in the future.
